@@ -47,7 +47,7 @@ md=1,
 
 column3 = dbc.Col(
     [
-     html.Img(src='assets/esrb.png', className='img-fluid'),
+     #html.Img(src='assets/esrb.png', className='img-fluid'),
 
        ],
 md=6,
