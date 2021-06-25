@@ -42,20 +42,33 @@ footer = dbc.Container(
                     html.Span('Philip Lee', className='mr-2'), 
                     html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/pflee/'), 
                     html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:pflee1989@outlook.com'), 
-                    # html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/pflee1989/VideoGameRating1.git'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://https://github.com/kickstarter-success-2021/dash'), 
+                    # html.A(html.I(className='fab fa-medium'), href='https://philipfeiranlee.medium.com/video-game-rating-trying-to-simulate-whats-in-the-head-of-the-raters-165c6cf73d16'), 
+                    
+                    html.Span('Lucas Chatham', className='mr-2'), 
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/lucaschatham/'), 
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='chathamworks@gmail.com'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/lucaschatham'), 
+                    # html.A(html.I(className='fab fa-medium'), href='https://philipfeiranlee.medium.com/video-game-rating-trying-to-simulate-whats-in-the-head-of-the-raters-165c6cf73d16'), 
+                    
+                    html.Span('Rhia George', className='mr-2'),
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/rhia-george/'), 
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:rhiag.385@gmail.com'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/kickstarter-success-2021/dash'), 
                     # html.A(html.I(className='fab fa-medium'), href='https://philipfeiranlee.medium.com/video-game-rating-trying-to-simulate-whats-in-the-head-of-the-raters-165c6cf73d16'), 
                 ], 
+                
+
+
                 className='lead'
+                
             ),
-        ),
+
+        )
 
         )
 )
 
-# Layout docs:
-# html.Div: https://dash.plot.ly/getting-started
-# dcc.Location: https://dash.plot.ly/dash-core-components/location
-# dbc.Container: https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False), 
     navbar, 
