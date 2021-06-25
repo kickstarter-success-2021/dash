@@ -25,6 +25,7 @@ jupyter = "*"
 dash-core-components = "*"
 mapbox = "*"
 joblib = "==1.0.1"
+xgboost = "*"
 
 [requires]
 python_version = "3"
