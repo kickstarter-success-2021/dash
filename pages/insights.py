@@ -27,9 +27,9 @@ column1 = dbc.Col(
         
         ), 
     
-    html.Img(src='assets/rf_kickstarter.png', className='img-fluid'),
-
-
+    
+    html.Img(src='assets/pdp.png', className='img-fluid'),
+    
 
     ],
 )

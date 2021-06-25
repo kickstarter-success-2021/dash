@@ -139,7 +139,9 @@ column3 =  dbc.Col([
             
             dcc.Markdown('',id='prediction-content', style={
             'textAlign':'center',
-            'font-size':30})
+            'font-size':30}),
+            
+            html.Img(src='assets/confusion_plot_rf.png', className='img-fluid')
 ])   
 
 # Takes inputs from user and returning to show their selection

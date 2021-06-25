@@ -41,15 +41,14 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-    
-    
-    ],
+            
+       ],
 md=1,
 )
 
 column3 = dbc.Col(
     [
-     html.Img(src='assets/goal_in_usd.png', className='img-fluid'),
+     html.Img(src='assets/ksr.png', className='img-fluid'),
 
        ],
 md=6,
