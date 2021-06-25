@@ -46,9 +46,10 @@ footer = dbc.Container(
                     # html.A(html.I(className='fab fa-medium'), href='https://philipfeiranlee.medium.com/video-game-rating-trying-to-simulate-whats-in-the-head-of-the-raters-165c6cf73d16'), 
                 ], 
                 className='lead'
-            )
+            ),
+        ),
+
         )
-    )
 )
 
 # Layout docs:
