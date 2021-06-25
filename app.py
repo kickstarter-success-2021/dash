@@ -54,5 +54,10 @@ meta_tags=[
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, meta_tags=meta_tags)
 app.config.suppress_callback_exceptions = True # see https://dash.plot.ly/urls
+<<<<<<< HEAD
 app.title = 'Kickstarter Success? # appears in browser title bar'
 server = app.server
+=======
+app.title = 'Will your Kickstarter be successful?' # appears in browser title bar
+server = app.server
+>>>>>>> cda26828998a7ffd6b789cd304a1b119ce7a840b

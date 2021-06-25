@@ -31,7 +31,11 @@ column1 = dbc.Col(
     
     # html.Img(src='assets/Rating Distribution.PNG', className='img-fluid'),
 
+<<<<<<< HEAD
     html.Img(src='assets/xgb_kikstarter.png', className='img-fluid')
+=======
+    #html.Img(src='assets/XGBoost All Features.png', className='img-fluid')
+>>>>>>> cda26828998a7ffd6b789cd304a1b119ce7a840b
     
     ],
 )

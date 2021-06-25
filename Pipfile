@@ -25,7 +25,10 @@ jupyter = "*"
 dash-core-components = "*"
 mapbox = "*"
 joblib = "==1.0.1"
+<<<<<<< HEAD
 scikit-learn = "*"
+=======
+>>>>>>> cda26828998a7ffd6b789cd304a1b119ce7a840b
 xgboost = "*"
 
 [requires]

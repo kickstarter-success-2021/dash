@@ -51,7 +51,11 @@ md=1,
 
 column3 = dbc.Col(
     [
+<<<<<<< HEAD
      html.Img(src='assets/goal_in_usd.png', className='img-fluid'),
+=======
+     #html.Img(src='assets/esrb.png', className='img-fluid'),
+>>>>>>> cda26828998a7ffd6b789cd304a1b119ce7a840b
 
        ],
 md=6,
