@@ -1,8 +1,6 @@
 # Imports from 3rd party libraries
 # import joblib
 from joblib import load
-pipeline = load('assets/pipeline_joblib')
-# a copy of the filepath (r'C:\Users\pflee\Desktop\Local Work\Video-Game-Rating-Formal\Video-Game-Rating\assets\pipline_joblib')
 import pandas as pd
 import dash
 import dash_bootstrap_components as dbc
@@ -15,191 +13,187 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app
+from joblib import load
 
+model = load('assets/model_gb')
 
-# Get the Function in
-@app.callback(
-Output('prediction-content', 'children'),
-[Input('strong_janguage', 'value'), Input('no_descriptors', 'value'), Input('mild_fantasy_violence', 'value'), Input('blood_and_gore', 'value'), Input('blood', 'value'), Input('strong_sexual_content', 'value')],
-# [Input('blood_and_gore', 'value'), Input('strong_janguage', 'value')],
-# [Input('strong_sexual_content', 'value'), Input('mild_fantasy_violence', 'value')]
-)
-# Order of the Variables in the App Version
-# strong_janguage	no_descriptors	mild_fantasy_violence	blood_and_gore	blood	strong_sexual_content
-def predict(strong_janguage, no_descriptors, 
-            mild_fantasy_violence, blood_and_gore, blood, 
-            strong_sexual_content):
-    # print(strong_janguage)
-    df = pd.Series(
-        # columns = ["strong_janguage", "no_descriptors", 
-        #     "blood", "mild_fantsy_violence", 
-        #     "blood_and_gore",  "strong_sexual_content"],
-        data =[strong_janguage, no_descriptors, 
-            mild_fantasy_violence, blood_and_gore, blood, 
-            strong_sexual_content]),
-    y_pred = pipeline.predict(df)[0]
-    # print(y_pred)
-    return y_pred 
+category_list = ['film & video','art','technology','comics','fashion','crafts','publishing','design','food','theater','music','dance','photography']
 
+sub_category_list = ['illustration', 'action', 'accessories', 'radio & podcasts',
+       'hardware', 'woodworking', 'product design', 'narrative film',
+       'drinks', 'events', 'cookbooks', 'documentary', 'plays',
+       'footwear', 'mixed media', 'digital art', 'places', 'sculpture',
+       'ready-to-wear', 'shorts', 'webcomics', 'painting',
+       'performance art', 'family', 'anthologies', 'graphic design',
+       'comic books', 'apps', 'software', '3d printing', 'comedy', 'web',
+       'world music', "children's books", 'public art', 'pop', 'diy',
+       'science fiction', 'immersive', 'vegan', 'fiction', 'gadgets',
+       'wearables', 'performances', 'r&b', 'horror', 'experimental',
+       'art books', 'sound', 'festivals', 'conceptual art', 'webseries',
+       'civic design', 'apparel', 'animation', 'printing', 'nonfiction',
+       'poetry', 'graphic novels', 'musical', 'food trucks', 'photobooks',
+       'textiles', 'drama', 'music videos', 'jewelry', 'thrillers',
+       'stationery', 'movie theaters', 'periodicals', 'small batch',
+       'fantasy', 'fine art', 'farms', 'candles', 'television',
+       'installations', 'pottery', 'typography', 'rock',
+       'fabrication tools', 'diy electronics', 'crochet', 'couture',
+       'video art', 'calendars', 'community gardens', 'residencies',
+       'romance', 'bacon', 'academic', 'punk', 'literary journals',
+       'young adult', "farmer's markets", 'flight', 'interactive design',
+       'architecture', 'childrenswear', 'ceramics', 'zines', 'metal',
+       'people', 'space exploration', 'spaces', 'knitting', 'pet fashion',
+       'glass', 'robots', 'toys', 'nature', 'camera equipment',
+       'embroidery', 'makerspaces', 'restaurants', 'weaving',
+       'social practice', 'workshops', 'literary spaces', 'translations',
+       'letterpress', 'quilts']
 
-
-# 2 column layout. 1st column width = 4/12
-# https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 column1 = dbc.Col(
     [
-        dcc.Markdown(
-            """
-        
-            ## Predictions
-
-            You Will Choose If A Particular Characteristic of Concern Is Present or Absent.
-            On the right, the plot shows the strength of each variable within this online GradientBoost model.  
-            
-            You will see that strong langauge is the most important indicator of maturity necessary for the game content. 
-            Blood and gore, blood, mild fantasy violence and no decriptor follow. 
-
-
-            As always, strong languages tend to be inappropriate >_<
-            """
-        ), 
-        html.Img(src='assets/GBC Important Features.png', className='img-fluid'),
-     
+        dcc.Markdown('''###### Category'''),
+         dcc.Dropdown(
+        id='category_1',
+        options=[
+        {'label': i, 'value': i} for i in category_list
+       ],
+        value='art',
+        className='mb-4'), 
 
         
-    
-    ], 
-    md=4, 
-    
-)
+        dcc.Markdown('''###### Sub Category'''),
+         dcc.Dropdown(
+        id='sub_category',
+        options=[
+        {'label': i, 'value': i} for i in sub_category_list
+       ],
+        value='diy',
+        className='mb-4'), 
+
+
+        dcc.Markdown('''###### Goal (USD)'''),
+        dcc.Slider(
+            id='goal_in_usd',
+            min=0,
+            max=100000000,
+            step=50000,
+            value=1000,
+        ),
+        dcc.Markdown('', id='goal_in_usd'),
+
+
+        dcc.Markdown('''###### Campaign Duration'''),
+        dcc.Slider(
+            id='campaign_duration',
+            min=2,
+            max=100,
+            step=10,
+            value=2,
+        ),
+        dcc.Markdown('', id='campaign-duration-container'),
+        
+        html.H2('Possibility of Success', className='mb-5')
+
+        ],
+    )
 
 column2 = dbc.Col(
     [
-             dcc.Markdown('Strong Language?'
-                     ), 
-        dcc.Dropdown(
-            id='strong_janguage', 
-            options = [
-                {'label': 'Yes', 'value': 1}, 
-                {'label': 'No', 'value': 0},     
-            ], 
-            value = '0', 
-            className='mb-5', 
-        ), 
-        # !/usr/bin/python3
-           dcc.Markdown('No Decription of the Content?'
-                     ), 
-        dcc.Dropdown(
-            id='no_descriptors', 
-            options = [
-                {'label': 'Yes', 'value': 1}, 
-                {'label': 'No', 'value': 0}, ], 
-            value = '0', 
-            className='mb-5', 
-        ), 
-        #     dcc.Markdown('Fantasy Violence?'
-        #              ), 
-        # dcc.Dropdown(
-        #     id='fantasy_violence', 
-        #     options = [
-        #         {'label': 'Yes', 'value': '1'}, 
-        #         {'label': 'No', 'value': '0'}, ], 
-        #     value = 'Fantasy Violence', 
-        #     className='mb-5', 
-        # ), 
-        
-               dcc.Markdown('Blood and Gore?'
-                     ), 
-        dcc.Dropdown(
-            id='blood_and_gore', 
-            options = [
-                {'label': 'Yes', 'value': 1}, 
-                {'label': 'No', 'value': 0}, ], 
-            value = '0', 
-            className='mb-5', 
-        ), 
-        html.H2('Game Rating', className='mb-5'), 
-        
-        #           dcc.Markdown('Mild Cartoon Violence?'
-        #              ), 
-        # dcc.Dropdown(
-        #     id='mild_cartoon_violence', 
-        #     options = [
-        #         {'label': 'Yes', 'value': '1'}, 
-        #         {'label': 'No', 'value': '0'}, ], 
-        #     value = 'Mild Cartoon Violence', 
-        #     className='mb-5', 
-        # ), 
-      
-   
-      
-        
-    ],
-    md=4,
-)
+        dcc.Markdown('''###### Backers Count'''),
+        dcc.Slider(
+            id='backers_count',
+            min=0,
+            max=60,
+            step=10,
+            value=25,
+        ),
+        dcc.Markdown('', id='backers-count-slider-container'),
 
-column3 = dbc.Col(
-    [
-             dcc.Markdown('Blood?'
-                     ), 
-        dcc.Dropdown(
-            id='blood', 
-            options = [
-                {'label': 'Yes', 'value': 1}, 
-                {'label': 'No', 'value': 0},     
-            ], 
-            value = '0', 
-            className='mb-5', 
-        ), 
-        # !/usr/bin/python3
-           dcc.Markdown('Mild Fantasy Violence?'
-                     ), 
-        dcc.Dropdown(
-            id='mild_fantasy_violence', 
-            options = [
-                {'label': 'Yes', 'value': 1}, 
-                {'label': 'No', 'value': 0}, ], 
-            value = '0', 
-            className='mb-5', 
-        ), 
-        #     dcc.Markdown('Violence?'
-        #              ), 
-        # dcc.Dropdown(
-        #     id='violence', 
-        #     options = [
-        #         {'label': 'Yes', 'value': '1'}, 
-        #         {'label': 'No', 'value': '0'}, ], 
-        #     value = 'Violence', 
-        #     className='mb-5', 
-        # ), 
-        
-               dcc.Markdown('Strong Sexual Content?'
-                     ), 
-        dcc.Dropdown(
-            id='strong_sexual_content', 
-            options = [
-                {'label': 'Yes', 'value': 1}, 
-                {'label': 'No', 'value': 0}, ], 
-            value = '0', 
-            className='mb-5', 
-        ), 
-        #   dcc.Markdown('Cartoon Violence?'
-        #              ), 
-        # dcc.Dropdown(
-        #     id='cartoon_violence', 
-        #     options = [
-        #         {'label': 'Yes', 'value': '1'}, 
-        #         {'label': 'No', 'value': '0'}, ], 
-        #     value = 'Cartoon Violence', 
-        #     className='mb-5', 
-        # ), 
-        
-#  dcc.Link(dbc.Button('Get Your Game Rating', color='primary'), href='/Result')
-    html.Div(id='prediction-content', className='lead')  
-  ],
-    md=4,
-# column4 = dbc.Col(
-#     [
-#     ]
-)
 
-layout = dbc.Row([column1, column2, column3])
+        dcc.Markdown('''###### Blurb Length'''),
+        dcc.Slider(
+            id='blurb_length',
+            min=0,
+            max=50,
+            step=10,
+            value=25,
+        ),
+        dcc.Markdown('', id='blurb-length-slider-container'),
+
+
+        dcc.Markdown('''###### Pledged Amount'''),
+        
+        dcc.Slider(
+            id='pledged',
+            min=5,
+            max=10000000,
+            step=1000,
+            value=500,
+        ),
+        dcc.Markdown('', id='pledged-amount-slider-container'),
+
+
+        dcc.Markdown('',id='prediction-content', style={
+        'textAlign':'center',
+        'font-size':30}), 
+        
+        html.Div(id='prediction-content', className='lead') 
+        
+# , style= {"width": "200px", 
+#                 "height":"200px"}
+
+        ],
+    
+    )
+
+# Takes inputs from user and returning to show their selection
+@app.callback(
+    dash.dependencies.Output('goal-usd-slider-container', 'children'),
+    [dash.dependencies.Input('goal_usd', 'value')])
+def update_output(value):
+    return 'Goal(USD) = "{}"'.format(value)
+
+@app.callback(
+    dash.dependencies.Output('campaign-duration-slider-container', 'children'),
+    [dash.dependencies.Input('campaign_duration', 'value')])
+def update_output(value):
+    return 'Campaign Duration = "{}"'.format(value)
+
+@app.callback(
+    dash.dependencies.Output('backers-count-slider-container', 'children'),
+    [dash.dependencies.Input('backers_count', 'value')])
+def update_output(value):
+    return 'Backers Count = "{}"'.format(value)
+
+@app.callback(
+    dash.dependencies.Output('blurb-length-slider-container', 'children'),
+    [dash.dependencies.Input('blurb_length', 'value')])
+def update_output(value):
+    return 'Blurb Length = "{}"'.format(value)
+
+@app.callback(
+    dash.dependencies.Output('pledged-amount-slider-container', 'children'),
+    [dash.dependencies.Input('pledged', 'value')])
+def update_output(value):
+    return 'Pledged Amount = "{}"'.format(value)
+
+# Callback for the prediction container
+@app.callback(
+    Output('prediction-content','children'),
+    [ Input('backers_count', 'value'),
+      Input('category', 'value'),
+      Input('pledged', 'value'),
+      Input('blurb_length', 'value'),
+      Input('goal_in_usd', 'value'),
+      Input('campaign_duration', 'value'),      
+      Input('sub_category', 'value')
+     ])
+
+# backers_count,category,pledged,state,blurb_length,goal_in_usd,campaign_duration,sub_category
+
+def predict(backers_count,category,pledged,state,blurb_length,goal_in_usd,campaign_duration,sub_category):
+    df = pd.DataFrame(columns=["backers_count","category","pledged","state","blurb_length","goal_in_usd","campaign_duration","sub_category"], 
+    data=[[backers_count,category,pledged,state,blurb_length,goal_in_usd,campaign_duration,sub_category]])
+    y_pred = model.predict(df)[0]
+    y_pred_prob = model.predictproba(df)[0]
+    return "This campaign is {} likely to be {}.".format(round(y_pred_prob,2),y_pred)
+
+layout = dbc.Row([column1, column2])

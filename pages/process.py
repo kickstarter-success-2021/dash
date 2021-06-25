@@ -17,13 +17,23 @@ column1 = dbc.Col(
         
             ## Process
 
-            Please visit my blog per the medium icon at the bottom, or this link:
+            We cleaned a Kickstarter dataset, preserve more than 8000 rows, 
             
-            https://philipfeiranlee.medium.com/video-game-rating-trying-to-simulate-whats-in-the-head-of-the-raters-165c6cf73d16
+            and place the rows into a gradient boost model for testing. 
+            
+            The photo below shows the importances-- it is all about the ability to turn
+            
+            inital backers into a critical mass of sponsors. 
+            
+            As the number of backers increase, the white bars, denoting successful cases, 
+            
+            would increase as well. 
+            
+            
 
             """
         ),
-        html.Img(src='assets/esrb_ratings.png', className='img-fluid'),
+        html.Img(src='assets/backer.png', className='img-fluid'),
     ],
     
 )

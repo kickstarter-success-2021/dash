@@ -16,9 +16,14 @@ column1 = dbc.Col(
             """
         
             ## Insights
-            This model is realistic, but less powerful than the complete one because this model only used 10 features. The picture below shows the important features of the original model. 
-            For the complete model is completely different. Please refer to the 
-            notebook through the github icon, or the blog post through the medium icon. 
+            
+            The gradient boost classifier model, the one in this app, shows that the most important factors are the number
+            
+            of initial backers, the goal in usd and the pledged amount. The picture below is from the model's close 
+            
+            cousin, XGBoost Classifier, that shows similar result. It is all about turning backers into more 
+            
+            sponsors. 
 
             """
         
@@ -26,7 +31,7 @@ column1 = dbc.Col(
     
     # html.Img(src='assets/Rating Distribution.PNG', className='img-fluid'),
 
-    html.Img(src='assets/XGBoost All Features.png', className='img-fluid')
+    html.Img(src='assets/xgb_kikstarter.png', className='img-fluid')
     
     ],
 )

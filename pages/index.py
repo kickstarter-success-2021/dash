@@ -16,19 +16,23 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## We Learn Best Through Games
+            ## Not All Plans Succeed in Raising Funds, But Some Do. 
 
-            But Inappropriate Contents Obviousl Catch More Attention....
+            You May Be Interested to Know What Plans Get Most Sponsors, 
+            
+            and What Plans Don't. 
+            
+            The plot on the left shows that the fundraising goal does not necessarily 
+            
+            make success harder. Something else is at work. Let's find out. 
 
-            You'll choose if a certain feature ✅ Is or ❌NOT in the game.
-
-             
+                         
             """
         ),
        
         
         
-        dcc.Link(dbc.Button('Get Your Game Rating', color='primary'), href='/Predictions')
+        dcc.Link(dbc.Button('Predict Your Success', color='primary'), href='/Predictions')
     ],
     md=5,
 )
@@ -47,7 +51,7 @@ md=1,
 
 column3 = dbc.Col(
     [
-     html.Img(src='assets/esrb.png', className='img-fluid'),
+     html.Img(src='assets/goal_in_usd.png', className='img-fluid'),
 
        ],
 md=6,
