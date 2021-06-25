@@ -14,35 +14,41 @@ column1 = dbc.Col(
     [
         dcc.Markdown(
             """
-
+        
             ## Insights
-
-            The gradient boost classifier model, the one in this app, shows that the most important factors are the number of initial backers,
-
-            the goal in usd and the pledged amount. The picture below shows our model's important features. The model is a simple illustration
-
-            that fund-rasing success is all about turning backers into more sponsors.
-
-
-
-            The model is obviously wrong, because classifiers pick more potent, and potentially leaking indicator. In plain English, the classifers
-
-            detect failure, about 40% of total cases, with the backer_counts and pledged amount, rather than categories or sub-categories.
-
-
+            
+            The random forest classifier, the model serving this app, shows that the most important factors are the number of initial backers, 
+            
+            the goal in usd and the pledged amount. The picture below shows our model's features. The model illustrates the simple truth that 
+            
+            fund-rasing success is about securing investors. However, the subcategory is often the  last straw that may make or break the deal. 
+            
+            
+            
+            In plain English, the classifers detect failures, about 40% of total cases, with the backer_counts and pledged amount, rather than 
+            
+            categories or sub-categories, which ranked as the 4th most important factor. We can only live with the best tool that we have, and use  
+            
+            our models, especially those that think like us, with much caution. After all as in all good investments, honesty is in details, and good
+            
+            projects are highly tailored to specific needs. Let us all judge investments with caution. 
+            
+            
+            
+             
 
             """
-
-        ),
-
+        
+        ), 
+    
     # html.Img(src='assets/Rating Distribution.PNG', className='img-fluid'),
 
     html.Img(src='assets/rf_kickstarter.png', className='img-fluid')
-
+    
     ],
 )
 
 
 
-
+       
 layout = dbc.Row([column1])

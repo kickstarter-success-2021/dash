@@ -15,7 +15,7 @@ from dash.dependencies import Input, Output
 from app import app
 from joblib import load
 
-model = load('assets/model_gb')
+model = load('assets/model_rf')
 
 category_list = ['film & video','art','technology','comics','fashion','crafts','publishing','design','food','theater','music','dance','photography']
 
