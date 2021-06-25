@@ -1,7 +1,7 @@
 # Imports from 3rd party libraries
 # import joblib
-from joblib import load
-pipeline = load('assets/pipeline_joblib')
+#from joblib import load
+#pipeline = load('assets/pipeline_joblib')
 # a copy of the filepath (r'C:\Users\pflee\Desktop\Local Work\Video-Game-Rating-Formal\Video-Game-Rating\assets\pipline_joblib')
 import pandas as pd
 import dash
@@ -51,7 +51,7 @@ sub_category_list = ['illustration', 'action', 'accessories', 'radio & podcasts'
 
 column1 = dbc.Col(
     [
-        dcc.Markdown('''###### Category'''),
+        dcc.Markdown('''#### Category'''),
          dcc.Dropdown(
         id='category-dropdown',
         options=[
@@ -61,7 +61,7 @@ column1 = dbc.Col(
         className='mb-4'), 
 
         
-        dcc.Markdown('''###### Sub Category'''),
+        dcc.Markdown('''#### Sub Category'''),
          dcc.Dropdown(
         id='sub-category-dropdown',
         options=[
@@ -71,7 +71,7 @@ column1 = dbc.Col(
         className='mb-4'), 
 
 
-        dcc.Markdown('''###### Goal (USD)'''),
+        dcc.Markdown('''#### Goal (USD)'''),
         dcc.Slider(
             id='goal-usd-slider',
             min=0,
@@ -82,7 +82,7 @@ column1 = dbc.Col(
         dcc.Markdown('', id='goal-usd-slider-container'),
 
 
-        dcc.Markdown('''###### Campaign Duration'''),
+        dcc.Markdown('''#### Campaign Duration'''),
         dcc.Slider(
             id='campaign-duration-slider',
             min=2,
@@ -97,7 +97,7 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        dcc.Markdown('''###### Backers Count'''),
+        dcc.Markdown('''#### Backers Count'''),
         dcc.Slider(
             id='backers-count-slider',
             min=0,
@@ -108,7 +108,7 @@ column2 = dbc.Col(
         dcc.Markdown('', id='backers-count-slider-container'),
 
 
-        dcc.Markdown('''###### Blurb Length'''),
+        dcc.Markdown('''#### Blurb Length'''),
         dcc.Slider(
             id='blurb-length-slider',
             min=0,
@@ -119,7 +119,7 @@ column2 = dbc.Col(
         dcc.Markdown('', id='blurb-length-slider-container'),
 
 
-        dcc.Markdown('''###### Pledged Amount'''),
+        dcc.Markdown('''#### Pledged Amount'''),
         dcc.Slider(
             id='pledged-amount-slider',
             min=5,
@@ -129,13 +129,18 @@ column2 = dbc.Col(
         ),
         dcc.Markdown('', id='pledged-amount-slider-container'),
 
-
-        dcc.Markdown('',id='prediction-content', style={
-        'textAlign':'center',
-        'font-size':30})
+        
 
         ],
     )
+
+column3 =  dbc.Col([
+            # dcc.Markdown('''#### Predicted Status'''),
+            
+            dcc.Markdown('',id='prediction-content', style={
+            'textAlign':'center',
+            'font-size':30})
+])   
 
 # Takes inputs from user and returning to show their selection
 @app.callback(
@@ -179,12 +184,15 @@ def update_output(value):
       Input('blurb-length-slider', 'value'),
       Input('pledged-amount-slider', 'value')
      ])
-
 def predict(category,subcategory,goalinusd,campaignduration,backerscount,blurblength,pledged):
     df = pd.DataFrame(columns=['category','sub_category','goal_in_usd','campaign_duration','backers_count','blurb_length','pledged'], 
     data=[[category,subcategory,goalinusd,campaignduration,backerscount,blurblength,pledged]])
     y_pred = model.predict(df)[0]
-    y_pred_prob = model.predictproba(df)[0]
-    return "This campaign is {} likely to be {}.".format(round(y_pred_prob,2),y_pred)
-
-layout = dbc.Row([column1, column2])
+    if y_pred == 1:
+        return "This campaign is likely to be successful."
+    else:
+        return "This campaign is likely to fail."
+    #y_pred_prob = model.predictproba(df)[0]
+    #return "This campaign is {} likely to be {}.".format(round(y_pred_prob,2),y_pred)
+    #return "This campaign is likely to be {}.".format(y_pred)
+layout = dbc.Row([column1, column2, column3])
