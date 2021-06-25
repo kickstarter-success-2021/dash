@@ -51,7 +51,7 @@ column1 = dbc.Col(
     [
         dcc.Markdown('''###### Category'''),
          dcc.Dropdown(
-        id='category_1',
+        id='category-dropdown',
         options=[
         {'label': i, 'value': i} for i in category_list
        ],
@@ -61,7 +61,7 @@ column1 = dbc.Col(
         
         dcc.Markdown('''###### Sub Category'''),
          dcc.Dropdown(
-        id='sub_category',
+        id='sub-category-dropdown',
         options=[
         {'label': i, 'value': i} for i in sub_category_list
        ],
@@ -71,26 +71,26 @@ column1 = dbc.Col(
 
         dcc.Markdown('''###### Goal (USD)'''),
         dcc.Slider(
-            id='goal_in_usd',
+            id='goal-slider',
             min=0,
             max=100000000,
             step=50000,
             value=1000,
         ),
-        dcc.Markdown('', id='goal_in_usd'),
+        dcc.Markdown('', id='goal-slider-container'),
 
 
         dcc.Markdown('''###### Campaign Duration'''),
         dcc.Slider(
-            id='campaign_duration',
+            id='campaign-duration-slider',
             min=2,
             max=100,
             step=10,
             value=2,
         ),
-        dcc.Markdown('', id='campaign-duration-container'),
+        dcc.Markdown('', id='campaign-duration-slider-container'),
         
-        html.H2('Possibility of Success', className='mb-5')
+         
 
         ],
     )
@@ -99,7 +99,7 @@ column2 = dbc.Col(
     [
         dcc.Markdown('''###### Backers Count'''),
         dcc.Slider(
-            id='backers_count',
+            id='backers-count-slider',
             min=0,
             max=60,
             step=10,
@@ -110,7 +110,7 @@ column2 = dbc.Col(
 
         dcc.Markdown('''###### Blurb Length'''),
         dcc.Slider(
-            id='blurb_length',
+            id='blurb-length-slider',
             min=0,
             max=50,
             step=10,
@@ -122,7 +122,7 @@ column2 = dbc.Col(
         dcc.Markdown('''###### Pledged Amount'''),
         
         dcc.Slider(
-            id='pledged',
+            id='pledged-slider',
             min=5,
             max=10000000,
             step=1000,
@@ -131,69 +131,80 @@ column2 = dbc.Col(
         dcc.Markdown('', id='pledged-amount-slider-container'),
 
 
-        dcc.Markdown('',id='prediction-content', style={
-        'textAlign':'center',
-        'font-size':30}), 
-        
+        # dcc.Markdown('',id='prediction-content', style={
+        # 'textAlign':'center',
+        # 'font-size':30}), 
+
+        html.H2('Possibility of Success', className='mb-5'),
         html.Div(id='prediction-content', className='lead') 
         
-# , style= {"width": "200px", 
-#                 "height":"200px"}
-
         ],
     
     )
 
 # Takes inputs from user and returning to show their selection
 @app.callback(
-    dash.dependencies.Output('goal-usd-slider-container', 'children'),
-    [dash.dependencies.Input('goal_usd', 'value')])
+    dash.dependencies.Output('goal-slider-container', 'children'),
+    [dash.dependencies.Input('goal-slider', 'value')])
 def update_output(value):
     return 'Goal(USD) = "{}"'.format(value)
 
 @app.callback(
     dash.dependencies.Output('campaign-duration-slider-container', 'children'),
-    [dash.dependencies.Input('campaign_duration', 'value')])
+    [dash.dependencies.Input('campaign-duration-slider', 'value')])
 def update_output(value):
     return 'Campaign Duration = "{}"'.format(value)
 
 @app.callback(
     dash.dependencies.Output('backers-count-slider-container', 'children'),
-    [dash.dependencies.Input('backers_count', 'value')])
+    [dash.dependencies.Input('backers-count-slider', 'value')])
 def update_output(value):
     return 'Backers Count = "{}"'.format(value)
 
 @app.callback(
     dash.dependencies.Output('blurb-length-slider-container', 'children'),
-    [dash.dependencies.Input('blurb_length', 'value')])
+    [dash.dependencies.Input('blurb-length-slider', 'value')])
 def update_output(value):
     return 'Blurb Length = "{}"'.format(value)
 
 @app.callback(
     dash.dependencies.Output('pledged-amount-slider-container', 'children'),
-    [dash.dependencies.Input('pledged', 'value')])
+    [dash.dependencies.Input('pledged-slider', 'value')])
 def update_output(value):
     return 'Pledged Amount = "{}"'.format(value)
 
 # Callback for the prediction container
+# @app.callback(
+#     Output('prediction-content','children'),
+#     [ Input('backers_count', 'value'),
+#       Input('category', 'value'),
+#       Input('pledged', 'value'),
+#       Input('blurb_length', 'value'),
+#       Input('goal_in_usd', 'value'),
+#       Input('campaign_duration', 'value'),      
+#       Input('sub_category', 'value')
+#      ])
+
 @app.callback(
     Output('prediction-content','children'),
-    [ Input('backers_count', 'value'),
-      Input('category', 'value'),
-      Input('pledged', 'value'),
-      Input('blurb_length', 'value'),
-      Input('goal_in_usd', 'value'),
-      Input('campaign_duration', 'value'),      
-      Input('sub_category', 'value')
+    [ Input('category-dropdown', 'value'),
+      Input('sub-category-dropdown', 'value'),
+      Input('goal-slider', 'value'),
+      Input('campaign-duration-slider', 'value'),
+      Input('backers-count-slider', 'value'),
+      Input('blurb-length-slider', 'value'),      
+      Input('pledged-slider', 'value')
      ])
 
-# backers_count,category,pledged,state,blurb_length,goal_in_usd,campaign_duration,sub_category
-
-def predict(backers_count,category,pledged,state,blurb_length,goal_in_usd,campaign_duration,sub_category):
-    df = pd.DataFrame(columns=["backers_count","category","pledged","state","blurb_length","goal_in_usd","campaign_duration","sub_category"], 
-    data=[[backers_count,category,pledged,state,blurb_length,goal_in_usd,campaign_duration,sub_category]])
+def predict(category,sub_category,goal_in_usd,campaign_duration,backers_count,blurb_length,pledged):
+    # df = pd.DataFrame(columns=["backers_count","category","pledged","state","blurb_length","goal_in_usd","campaign_duration","sub_category"], 
+    df = pd.DataFrame(columns=["category","sub_category","goal_in_usd","campaign_duration","backers_count","blurb_length","pledged"],
+    data=[[category,sub_category,goal_in_usd,campaign_duration,backers_count,blurb_length,pledged]])
     y_pred = model.predict(df)[0]
-    y_pred_prob = model.predictproba(df)[0]
-    return "This campaign is {} likely to be {}.".format(round(y_pred_prob,2),y_pred)
+    #y_pred_prob = model.predictproba(df)[0]
+    if y_pred == 1:
+        return "This campaign is likely to be successful."
+    else:
+        return "This campaign is likely to fail."
 
 layout = dbc.Row([column1, column2])
