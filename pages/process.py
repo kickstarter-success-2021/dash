@@ -13,17 +13,19 @@ from app import app
 column1 = dbc.Col(
     [
         dcc.Markdown(
-            """
+           """
         
             ## Process
 
-            We cleaned a Kickstarter dataset, preserve more than 8000 rows and place the rows into a gradient boost model for testing. The partial dependence graph
+            We cleaned a Kickstarter dataset, preserve more than 8000 rows and place the rows into a random forest classifier. The partial dependence graph below
             
-            below shows the core mechanisms within the model-- only certian projcects succeeded in expanding the circle of early backers into a sphere of sponsors with 
+            shows the core mechanisms within the model-- only certian projcects succeeded in expanding the circle of early backers into a sphere of sponsors with 
             
             critical mass. The number of backers tend to indicate the likelihood of success for good reasons. We have yet to isolate the impact of each sub-category. 
             
+            However, the model fails to highlight the behavioral reality-- subcategories that indicate market/consumer demands. Thus, we only show this colorful graph  
             
+            to illustrate the most salient relationship in this project. 
 
             """
         ),
