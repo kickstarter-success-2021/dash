@@ -18,9 +18,7 @@ column1 = dbc.Col(
         
             ## Not All Plans Succeed in Raising Funds, But Some Do. 
 
-            You May Be Interested to Know What Plans Get Most Sponsors, 
-            
-            and What Plans Don't. 
+            You may want to know what projects tend to succeed, and which ones do not. 
             
             The plot on the left shows that the fundraising goal does not necessarily 
             
@@ -51,11 +49,7 @@ md=1,
 
 column3 = dbc.Col(
     [
-<<<<<<< HEAD
      html.Img(src='assets/goal_in_usd.png', className='img-fluid'),
-=======
-     #html.Img(src='assets/esrb.png', className='img-fluid'),
->>>>>>> cda26828998a7ffd6b789cd304a1b119ce7a840b
 
        ],
 md=6,

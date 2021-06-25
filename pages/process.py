@@ -17,23 +17,17 @@ column1 = dbc.Col(
         
             ## Process
 
-            We cleaned a Kickstarter dataset, preserve more than 8000 rows, 
+            We cleaned a Kickstarter dataset, preserve more than 8000 rows, and place the rows into a gradient boost model for testing. 
             
-            and place the rows into a gradient boost model for testing. 
+            The photo below shows the importances-- it is all about the ability to turn inital backers into a critical mass of sponsors. 
             
-            The photo below shows the importances-- it is all about the ability to turn
-            
-            inital backers into a critical mass of sponsors. 
-            
-            As the number of backers increase, the white bars, denoting successful cases, 
-            
-            would increase as well. 
+            As the number of backers and pledges increase, the project is more likely to be successful. 
             
             
 
             """
         ),
-        html.Img(src='assets/backer.png', className='img-fluid'),
+        html.Img(src='assets/pdp.png', className='img-fluid'),
     ],
     
 )

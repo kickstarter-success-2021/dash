@@ -17,11 +17,9 @@ column1 = dbc.Col(
         
             ## Insights
             
-            The gradient boost classifier model, the one in this app, shows that the most important factors are the number
+            The random forest classifier model, the one in this app, shows that the most important factors are the number
             
-            of initial backers, the goal in usd and the pledged amount. The picture below is from the model's close 
-            
-            cousin, XGBoost Classifier, that shows similar result. It is all about turning backers into more 
+            of initial backers, the goal in usd and the pledged amount. The picture below shows that the key is to turn backers into
             
             sponsors. 
 
@@ -29,14 +27,10 @@ column1 = dbc.Col(
         
         ), 
     
-    # html.Img(src='assets/Rating Distribution.PNG', className='img-fluid'),
+    html.Img(src='assets/rf_kickstarter.png', className='img-fluid'),
 
-<<<<<<< HEAD
-    html.Img(src='assets/xgb_kikstarter.png', className='img-fluid')
-=======
-    #html.Img(src='assets/XGBoost All Features.png', className='img-fluid')
->>>>>>> cda26828998a7ffd6b789cd304a1b119ce7a840b
-    
+
+
     ],
 )
 
