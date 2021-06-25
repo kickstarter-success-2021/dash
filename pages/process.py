@@ -17,23 +17,17 @@ column1 = dbc.Col(
         
             ## Process
 
-            We cleaned a Kickstarter dataset, preserve more than 8000 rows, 
+            We cleaned a Kickstarter dataset, preserve more than 8000 rows and place the rows into a gradient boost model for testing. The partial dependence graph
             
-            and place the rows into a gradient boost model for testing. 
+            below shows the core mechanisms within the model-- only certian projcects succeeded in expanding the circle of early backers into a sphere of sponsors with 
             
-            The photo below shows the importances-- it is all about the ability to turn
-            
-            inital backers into a critical mass of sponsors. 
-            
-            As the number of backers increase, the white bars, denoting successful cases, 
-            
-            would increase as well. 
+            critical mass. The number of backers tend to indicate the likelihood of success for good reasons. We have yet to isolate the impact of each sub-category. 
             
             
 
             """
         ),
-        html.Img(src='assets/backer.png', className='img-fluid'),
+        html.Img(src='assets/pdp.png', className='img-fluid'),
     ],
     
 )

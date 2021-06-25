@@ -73,7 +73,7 @@ column1 = dbc.Col(
         dcc.Slider(
             id='goal-slider',
             min=0,
-            max=100000000,
+            max=2000000,
             step=50000,
             value=1000,
         ),
@@ -124,7 +124,7 @@ column2 = dbc.Col(
         dcc.Slider(
             id='pledged-slider',
             min=5,
-            max=10000000,
+            max=2000000,
             step=1000,
             value=500,
         ),
@@ -135,12 +135,27 @@ column2 = dbc.Col(
         # 'textAlign':'center',
         # 'font-size':30}), 
 
+        # html.H2('Possibility of Success', className='mb-5'),
+        # html.Div(id='prediction-content', className='lead') 
+        
+        ],
+    
+    )
+
+column3 = dbc.Col(
+    [
+        
+        # dcc.Markdown('',id='prediction-content', style={
+        # 'textAlign':'center',
+        # 'font-size':30}), 
+
         html.H2('Possibility of Success', className='mb-5'),
         html.Div(id='prediction-content', className='lead') 
         
         ],
     
     )
+
 
 # Takes inputs from user and returning to show their selection
 @app.callback(
@@ -173,17 +188,6 @@ def update_output(value):
 def update_output(value):
     return 'Pledged Amount = "{}"'.format(value)
 
-# Callback for the prediction container
-# @app.callback(
-#     Output('prediction-content','children'),
-#     [ Input('backers_count', 'value'),
-#       Input('category', 'value'),
-#       Input('pledged', 'value'),
-#       Input('blurb_length', 'value'),
-#       Input('goal_in_usd', 'value'),
-#       Input('campaign_duration', 'value'),      
-#       Input('sub_category', 'value')
-#      ])
 
 @app.callback(
     Output('prediction-content','children'),
@@ -201,10 +205,10 @@ def predict(category,sub_category,goal_in_usd,campaign_duration,backers_count,bl
     df = pd.DataFrame(columns=["category","sub_category","goal_in_usd","campaign_duration","backers_count","blurb_length","pledged"],
     data=[[category,sub_category,goal_in_usd,campaign_duration,backers_count,blurb_length,pledged]])
     y_pred = model.predict(df)[0]
-    #y_pred_prob = model.predictproba(df)[0]
+    y_pred_prob = model.predict_proba(df)[0]*100
     if y_pred == 1:
-        return "This campaign is likely to be successful."
+        return "This campaign is {}% likely to be successful.".format(round(y_pred_prob[1],2))
     else:
-        return "This campaign is likely to fail."
+        return "This campaign is {}% likely to fail.".format(round(y_pred_prob[1],2))
 
-layout = dbc.Row([column1, column2])
+layout = dbc.Row([column1, column2, column3])
